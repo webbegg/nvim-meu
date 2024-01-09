@@ -19,6 +19,9 @@ M.servers = {
   "yamlls",
   "marksman",
   "tailwindcss",
+  "volar",
+  "eslint",
+  "eslint_d",
 }
 
 function M.config()

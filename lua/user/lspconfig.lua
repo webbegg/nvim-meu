@@ -61,7 +61,8 @@ function M.config()
     "marksman",
     "tailwindcss",
     "volar",
-    "eslint"
+    "eslint",
+    "gopls",
   }
 
   local default_diagnostic_config = {
