@@ -21,7 +21,7 @@ M.servers = {
   "tailwindcss",
   "volar",
   "eslint",
-  "eslint_d",
+  "emmet_ls",
 }
 
 function M.config()

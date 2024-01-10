@@ -63,6 +63,7 @@ function M.config()
     "volar",
     "eslint",
     "gopls",
+    "emmet_ls",
   }
 
   local default_diagnostic_config = {
