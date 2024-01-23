@@ -43,6 +43,7 @@ function M.config()
       -- component_separators = { left = "", right = "" },
       -- section_separators = { left = "", right = "" },
       component_separators = { left = "", right = "" },
+      -- section_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
 
       ignore_focus = { "NvimTree", "Neotree" },
@@ -79,11 +80,11 @@ function M.config()
       lualine_b = { "diagnostics" },
       lualine_c = { copilot },
       -- lualine_x = { "diagnostics", copilot },
-      lualine_x = {},
-      lualine_y = { diff },
-      lualine_z = { "branch" },
+      lualine_x = { diff },
+      lualine_y = { "branch" },
       -- lualine_y = { "filetype" },
       -- lualine_z = { "progress" },
+      lualine_z = { "location" },
     },
     extensions = { "quickfix", "man", "fugitive" },
   }
