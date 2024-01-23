@@ -1,3 +1,9 @@
+if vim.g.vscode then
+  require "vscode"
+  return
+end
+
+-- Actual nvim
 require "user.launch"
 require "user.options"
 require "user.keymaps"
@@ -23,8 +29,8 @@ spec "user.buffermanager"
 spec "user.cmp"
 spec "user.autopairs"
 spec "user.comment"
--- spec "user.gitsigns"
--- spec "user.neogit"
+spec "user.gitsigns"
+spec "user.neogit"
 spec "user.diffview"
 -- spec "user.indentline"
 -- spec "user.alpha"

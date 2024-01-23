@@ -45,7 +45,7 @@ function M.config()
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
 
-      ignore_focus = { "NvimTree" },
+      ignore_focus = { "NvimTree", "Neotree" },
     },
     sections = {
       -- lualine_a = { {"branch", icon =""} },
@@ -54,10 +54,34 @@ function M.config()
       -- lualine_x = { copilot },
       -- lualine_y = { "filetype" },
       -- lualine_z = { "progress" },
-      lualine_a = { "mode" },
-      lualine_b = { "branch" },
-      -- lualine_c = { diff },
-      lualine_x = { "diagnostics", copilot },
+      -- lualine_a = { "mode" },
+      lualine_a = {
+        {
+          "filename",
+          file_status = true, -- Displays file status (readonly status, modified status)
+          newfile_status = false, -- Display new file status (new file means no write after created)
+          path = 1,
+          -- 0: Just the filename
+          -- 1: Relative path
+          -- 2: Absolute path
+          -- 3: Absolute path, with tilde as the home directory
+          -- 4: Filename and parent dir, with tilde as the home directory
+          shorting_target = 40, -- Shortens path to leave 40 spaces in the window
+          -- for other components. (terrible name, any suggestions?)
+          symbols = {
+            modified = icons.git.LineAdded, -- Text to show when the file is modified.
+            readonly = icons.git.LineModified, -- Text to show when the file is non-modifiable or readonly.
+            unnamed = "[No Name]", -- Text to show for unnamed buffers.
+            newfile = "[New]", -- Text to show for newly created file before first write
+          },
+        },
+      },
+      lualine_b = { "diagnostics" },
+      lualine_c = { copilot },
+      -- lualine_x = { "diagnostics", copilot },
+      lualine_x = {},
+      lualine_y = { diff },
+      lualine_z = { "branch" },
       -- lualine_y = { "filetype" },
       -- lualine_z = { "progress" },
     },

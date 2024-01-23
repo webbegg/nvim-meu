@@ -8,8 +8,13 @@ vim.g.maplocalleader = " "
 keymap("n", "<C-Space>", "<cmd>WhichKey \\<space><cr>", opts)
 keymap("n", "<C-i>", "<C-i>", opts)
 
+-- weird keymap
+keymap("n", "<cmd>W<cr>", "<C-s>", opts)
+keymap("n", "<cmd>Wqa<cr>", "<cmd>wqa<cr>", opts)
+keymap("n", "<cmd>Wq<cr>", "<cmd>wq<cr>", opts)
+
 -- Better save file
-keymap({"n", "v", "i"}, "<C-s>", "<esc><cmd>:w<cr>", opts)
+keymap({ "n", "v", "i" }, "<C-s>", "<esc><cmd>:w<cr>", opts)
 keymap("i", "jj", "<esc><cmd>:w<cr>", opts)
 
 -- Resize window using <ctrl> arrow keys
@@ -34,12 +39,12 @@ keymap("v", "<M-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 keymap("v", "<M-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- Maintain the cursor position when yanking a visual selection.
-keymap('v', 'y', 'myy`y')
-keymap('v', 'Y', 'myY`y')
+keymap("v", "y", "myy`y")
+keymap("v", "Y", "myY`y")
 
 -- Easy insertion of a trailing ; or , from insert mode.
-keymap('i', ';;', '<Esc>A;<Esc>')
-keymap('i', ',,', '<Esc>A,<Esc>')
+keymap("i", ";;", "<Esc>A;<Esc>")
+keymap("i", ",,", "<Esc>A,<Esc>")
 
 -- Easy scroll page
 keymap("n", "<C-k>", "<C-u>zz")
@@ -68,27 +73,27 @@ keymap("v", ">", ">gv", opts)
 keymap("x", "p", [["_dP]])
 
 -- Disable avpag and repag
-vim.api.nvim_set_keymap('n', '<PageUp>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<PageDown>', '<Nop>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<PageUp>", "<Nop>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<PageDown>", "<Nop>", { noremap = true, silent = true })
 
 -- Disabel cursors
-vim.api.nvim_set_keymap('n', '<Up>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Down>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Left>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Right>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Del>', '<Nop>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Up>", "<Nop>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Down>", "<Nop>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Left>", "<Nop>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Right>", "<Nop>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Del>", "<Nop>", { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('v', '<Up>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<Down>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<Left>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<Right>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<Del>', '<Nop>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<Up>", "<Nop>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<Down>", "<Nop>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<Left>", "<Nop>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<Right>", "<Nop>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<Del>", "<Nop>", { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('i', '<Up>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<Down>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<Left>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<Right>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<Del>', '<Nop>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<Up>', '<Nop>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<Down>', '<Nop>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<Left>', '<Nop>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<Right>', '<Nop>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<Del>', '<Nop>', { noremap = true, silent = true })
 
 -- Find
 keymap("n", "<C-p>", "<cmd>Telescope find_files<cr>", opts)
