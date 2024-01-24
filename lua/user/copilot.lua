@@ -4,6 +4,8 @@ local M = {
   lazy = false,
 }
 
-function M.config() end
+function M.config()
+  vim.cmd [[highlight Copilot guibg=#232323 guifg=#BCB35A]]
+end
 
 return M

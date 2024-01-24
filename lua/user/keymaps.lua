@@ -89,6 +89,11 @@ vim.api.nvim_set_keymap("v", "<Left>", "<Nop>", { noremap = true, silent = true 
 vim.api.nvim_set_keymap("v", "<Right>", "<Nop>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<Del>", "<Nop>", { noremap = true, silent = true })
 
+-- Deshabilitar el clic derecho
+vim.api.nvim_set_keymap("n", "<RightMouse>", "<Nop>", { noremap = true })
+vim.api.nvim_set_keymap("v", "<RightMouse>", "<Nop>", { noremap = true })
+vim.api.nvim_set_keymap("i", "<RightMouse>", "<Nop>", { noremap = true })
+
 -- vim.api.nvim_set_keymap('i', '<Up>', '<Nop>', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('i', '<Down>', '<Nop>', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('i', '<Left>', '<Nop>', { noremap = true, silent = true })
