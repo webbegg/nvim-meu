@@ -5,37 +5,38 @@ local M = {
   cmd = "Gitsigns",
 }
 M.config = function()
-  local icons = require "user.icons"
-
+  -- local icons = require "user.icons"
   require("gitsigns").setup {
+    signcolumn = true,
+    numhl = true,
     signs = {
       add = {
         hl = "GitSignsAdd",
-        text = icons.ui.BoldLineLeft,
+        text = "", -- icons.ui.BoldLineLeft,
         numhl = "GitSignsAddNr",
         linehl = "GitSignsAddLn",
       },
       change = {
         hl = "GitSignsChange",
-        text = icons.ui.BoldLineLeft,
+        text = "", -- icons.ui.BoldLineLeft,
         numhl = "GitSignsChangeNr",
         linehl = "GitSignsChangeLn",
       },
       delete = {
         hl = "GitSignsDelete",
-        text = icons.ui.TriangleShortArrowRight,
+        text = "", -- icons.ui.TriangleShortArrowRight,
         numhl = "GitSignsDeleteNr",
         linehl = "GitSignsDeleteLn",
       },
       topdelete = {
         hl = "GitSignsDelete",
-        text = icons.ui.TriangleShortArrowRight,
+        text = "", -- icons.ui.TriangleShortArrowRight,
         numhl = "GitSignsDeleteNr",
         linehl = "GitSignsDeleteLn",
       },
       changedelete = {
         hl = "GitSignsChange",
-        text = icons.ui.BoldLineLeft,
+        text = "", -- icons.ui.BoldLineLeft,
         numhl = "GitSignsChangeNr",
         linehl = "GitSignsChangeLn",
       },
@@ -45,6 +46,7 @@ M.config = function()
       follow_files = true,
     },
     attach_to_untracked = true,
+    current_line_blame = false,
     current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
     update_debounce = 200,
     max_file_length = 40000,

@@ -68,7 +68,7 @@ function M.config()
 
   cmp.setup {
     completion = {
-      -- autocomplete = false,
+      autocomplete = false,
     },
     snippet = {
       expand = function(args)
