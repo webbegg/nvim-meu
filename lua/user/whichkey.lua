@@ -8,7 +8,7 @@ function M.config()
   local mappings = {
     ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" },
     ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
-    ["e"] = { "<cmd>Neotree float<CR>", "Explorer" },
+    ["e"] = { "<cmd>Neotree reveal<CR>", "Explorer" },
     b = {
       name = "Buffers",
       b = { "<cmd>Telescope buffers previewer=false<cr>", "Find" },
