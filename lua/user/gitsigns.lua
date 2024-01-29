@@ -5,38 +5,37 @@ local M = {
   cmd = "Gitsigns",
 }
 M.config = function()
-  -- local icons = require "user.icons"
+  local icons = require "user.icons"
   require("gitsigns").setup {
     signcolumn = true,
-    numhl = true,
     signs = {
       add = {
         hl = "GitSignsAdd",
-        text = "", -- icons.ui.BoldLineLeft,
+        text = icons.ui.LineLeft,
         numhl = "GitSignsAddNr",
         linehl = "GitSignsAddLn",
       },
       change = {
         hl = "GitSignsChange",
-        text = "", -- icons.ui.BoldLineLeft,
+        text = icons.ui.LineLeft,
         numhl = "GitSignsChangeNr",
         linehl = "GitSignsChangeLn",
       },
       delete = {
         hl = "GitSignsDelete",
-        text = "", -- icons.ui.TriangleShortArrowRight,
+        text = icons.ui.TriangleShortArrowRight,
         numhl = "GitSignsDeleteNr",
         linehl = "GitSignsDeleteLn",
       },
       topdelete = {
         hl = "GitSignsDelete",
-        text = "", -- icons.ui.TriangleShortArrowRight,
+        text = icons.ui.TriangleShortArrowRight,
         numhl = "GitSignsDeleteNr",
         linehl = "GitSignsDeleteLn",
       },
       changedelete = {
         hl = "GitSignsChange",
-        text = "", -- icons.ui.BoldLineLeft,
+        text = icons.ui.LineLeft,
         numhl = "GitSignsChangeNr",
         linehl = "GitSignsChangeLn",
       },

@@ -4,6 +4,7 @@ local M = {
   dependencies = {
     "williamboman/mason.nvim",
     "nvim-lua/plenary.nvim",
+    "folke/neoconf.nvim",
   },
 }
 
@@ -11,7 +12,7 @@ M.servers = {
   "lua_ls",
   "cssls",
   "html",
-  "tsserver",
+  -- "tsserver",
   "astro",
   "pyright",
   "bashls",
@@ -30,8 +31,32 @@ function M.config()
       border = "rounded",
     },
   }
+
   require("mason-lspconfig").setup {
     ensure_installed = M.servers,
+  }
+
+  local lspconfig = require "lspconfig"
+  require("mason-lspconfig").setup_handlers {
+    function(server_name)
+      local server_config = {}
+      if require("neoconf").get(server_name .. ".disable") then
+        return
+      end
+      if server_name == "volar" then
+        server_config.filetypes = {
+          "vue",
+          "javascript",
+          "javascript.jsx",
+          "typescript",
+          "typescript.tsx",
+          "javascriptreact",
+          "typescriptreact",
+          "json",
+        }
+      end
+      lspconfig[server_name].setup(server_config)
+    end,
   }
 end
 

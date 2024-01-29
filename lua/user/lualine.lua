@@ -4,8 +4,8 @@ local M = {
 }
 
 function M.config()
-  local sl_hl = vim.api.nvim_get_hl_by_name("StatusLine", true)
-  vim.api.nvim_set_hl(0, "Copilot", { fg = "#6CC644", bg = sl_hl.background })
+  -- local sl_hl = vim.api.nvim_get_hl_by_name("StatusLine", true)
+  vim.api.nvim_set_hl(0, "Copilot", { fg = "#6CC644", bg = "#2D2D2D" }) -- sl_hl.background })
   local icons = require "user.icons"
   local diff = {
     "diff",
@@ -13,80 +13,106 @@ function M.config()
     symbols = { added = icons.git.LineAdded, modified = icons.git.LineModified, removed = icons.git.LineRemoved }, -- Changes the symbols used by the diff.
   }
 
-  local copilot = function()
-    local buf_clients = vim.lsp.get_active_clients { bufnr = 0 }
-    if #buf_clients == 0 then
-      return "LSP Inactive"
-    end
+  -- local copilot = function()
+  --   local buf_clients = vim.lsp.get_active_clients { bufnr = 0 }
+  --   if #buf_clients == 0 then
+  --     return "LSP Inactive"
+  --   end
+  --
+  --   local buf_client_names = {}
+  --   local copilot_active = false
+  --
+  --   for _, client in pairs(buf_clients) do
+  --     if client.name ~= "null-ls" and client.name ~= "copilot" then
+  --       table.insert(buf_client_names, client.name)
+  --     end
+  --
+  --     if client.name == "copilot" then
+  --       copilot_active = true
+  --     end
+  --   end
+  --
+  --   if copilot_active then
+  --     return "%#Copilot#" .. icons.git.Octoface .. "%*"
+  --   end
+  --   return ""
+  -- end
+  --
+  -- local filenameAndParentDir = require("user.utils").getFileAndParentDir
 
-    local buf_client_names = {}
-    local copilot_active = false
+  local colors = {
+    blue = "#80a0ff",
+    cyan = "#8ab3b5",
+    black = "#191919",
+    white = "#c6c6c6",
+    red = "#ab6077",
+    violet = "#d183e8",
+    grey = "#282828",
+    green = "#a1b56c",
+  }
 
-    for _, client in pairs(buf_clients) do
-      if client.name ~= "null-ls" and client.name ~= "copilot" then
-        table.insert(buf_client_names, client.name)
-      end
+  local base16_meu = {
+    normal = {
+      a = { fg = colors.black, bg = colors.cyan },
+      b = { fg = colors.white, bg = colors.grey },
+      c = { fg = colors.white, bg = colors.black },
+    },
 
-      if client.name == "copilot" then
-        copilot_active = true
-      end
-    end
+    insert = { a = { fg = colors.black, bg = colors.green } },
+    visual = { a = { fg = colors.black, bg = colors.cyan } },
+    replace = { a = { fg = colors.black, bg = colors.red } },
 
-    if copilot_active then
-      return "%#Copilot#" .. icons.git.Octoface .. "%*"
-    end
-    return ""
-  end
+    inactive = {
+      a = { fg = colors.white, bg = colors.black },
+      b = { fg = colors.white, bg = colors.black },
+      c = { fg = colors.black, bg = colors.black },
+    },
+  }
 
   require("lualine").setup {
     options = {
-      -- component_separators = { left = "", right = "" },
-      -- section_separators = { left = "", right = "" },
       component_separators = { left = "", right = "" },
-      -- section_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
-
-      ignore_focus = { "NvimTree", "Neotree" },
+      ignore_focus = { "NvimTree", "neo-tree" },
+      theme = base16_meu,
     },
     sections = {
-      -- lualine_a = { {"branch", icon =""} },
-      -- lualine_b = { diff },
-      -- lualine_c = { "diagnostics" },
-      -- lualine_x = { copilot },
-      -- lualine_y = { "filetype" },
-      -- lualine_z = { "progress" },
-      -- lualine_a = { "mode" },
-      -- lualine_a = {
-      --   {
-      --     "filename",
-      --     file_status = true, -- Displays file status (readonly status, modified status)
-      --     newfile_status = false, -- Display new file status (new file means no write after created)
-      --     path = 1,
-      --     -- 0: Just the filename
-      --     -- 1: Relative path
-      --     -- 2: Absolute path
-      --     -- 3: Absolute path, with tilde as the home directory
-      --     -- 4: Filename and parent dir, with tilde as the home directory
-      --     shorting_target = 40, -- Shortens path to leave 40 spaces in the window
-      --     -- for other components. (terrible name, any suggestions?)
-      --     symbols = {
-      --       modified = icons.git.LineAdded, -- Text to show when the file is modified.
-      --       readonly = icons.git.LineModified, -- Text to show when the file is non-modifiable or readonly.
-      --       unnamed = "[No Name]", -- Text to show for unnamed buffers.
-      --       newfile = "[New]", -- Text to show for newly created file before first write
-      --     },
-      --   },
-      -- },
-      lualine_a = { require("user.utils").getFileAndParentDir },
+      lualine_a = {
+        {
+          "filename",
+          path = 0,
+        },
+      },
       lualine_b = { "diagnostics" },
-      lualine_c = { copilot },
-      -- lualine_x = { "diagnostics", copilot },
+      lualine_c = {},
       lualine_x = {},
-      lualine_y = { diff },
-      lualine_z = { "branch" },
-      -- lualine_y = { "filetype" },
-      -- lualine_z = { "progress" },
-      -- lualine_z = { "location" },
+      lualine_y = { { "branch", icon = "" }, diff },
+      lualine_z = { { "location" } },
+    },
+    winbar = {
+      lualine_a = {},
+      lualine_b = {},
+      lualine_c = {},
+      lualine_x = {},
+      lualine_y = { {
+        "filename",
+        path = 1,
+      } },
+      lualine_z = {},
+    },
+
+    inactive_winbar = {
+      lualine_a = {},
+      lualine_b = {},
+      lualine_c = {},
+      lualine_x = {},
+      lualine_y = {
+        {
+          "filename",
+          path = 1,
+        },
+      },
+      lualine_z = {},
     },
     extensions = { "quickfix", "man", "fugitive" },
   }
