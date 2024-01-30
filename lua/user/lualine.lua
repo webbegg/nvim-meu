@@ -39,6 +39,9 @@ function M.config()
   -- end
   --
   -- local filenameAndParentDir = require("user.utils").getFileAndParentDir
+  local empty = function()
+    return " "
+  end
 
   local colors = {
     blue = "#80a0ff",
@@ -53,17 +56,17 @@ function M.config()
 
   local base16_meu = {
     normal = {
-      a = { fg = colors.black, bg = colors.cyan },
+      a = { fg = colors.cyan, bg = colors.cyan },
       b = { fg = colors.white, bg = colors.grey },
       c = { fg = colors.white, bg = colors.black },
     },
 
-    insert = { a = { fg = colors.black, bg = colors.green } },
-    visual = { a = { fg = colors.black, bg = colors.cyan } },
-    replace = { a = { fg = colors.black, bg = colors.red } },
+    insert = { a = { fg = colors.green, bg = colors.green } },
+    visual = { a = { fg = colors.cyan, bg = colors.cyan } },
+    replace = { a = { fg = colors.red, bg = colors.red } },
 
     inactive = {
-      a = { fg = colors.white, bg = colors.black },
+      a = { fg = colors.black, bg = colors.black },
       b = { fg = colors.white, bg = colors.black },
       c = { fg = colors.black, bg = colors.black },
     },
@@ -75,19 +78,31 @@ function M.config()
       section_separators = { left = "", right = "" },
       ignore_focus = { "NvimTree", "neo-tree" },
       theme = base16_meu,
+      icons_enabled = true,
     },
     sections = {
       lualine_a = {
         {
-          "filename",
-          path = 0,
+          "mode",
+          fmt = function(str)
+            -- Cambia 'NORMAL' a 'N', 'INSERT' a 'I', etc.
+            return str:sub(1, 1) -- Esto solo mostrará la primera letra del modo
+          end,
         },
       },
-      lualine_b = { "diagnostics" },
+      lualine_b = { { "branch", icon = "" }, diff },
+      -- lualine_b = {
+      --   {
+      --     "filename",
+      --     path = 0,
+      --   },
+      -- },
       lualine_c = {},
-      lualine_x = {},
-      lualine_y = { { "branch", icon = "" }, diff },
-      lualine_z = { { "location" } },
+      -- lualine_c = {},
+      lualine_x = { "diagnostics" },
+      -- lualine_x = { { "branch", icon = "" }, diff },
+      lualine_y = { "location" },
+      lualine_z = {},
     },
     winbar = {
       lualine_a = {},
