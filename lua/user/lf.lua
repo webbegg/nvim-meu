@@ -1,4 +1,4 @@
-return {
+local M = {
   "lmburns/lf.nvim",
   cmd = "Lf",
   dependencies = { "nvim-lua/plenary.nvim", "akinsho/toggleterm.nvim" },
@@ -12,3 +12,5 @@ return {
     { "<leader>e", "<cmd>Lf<cr>", desc = "NeoTree" },
   },
 }
+
+return M
