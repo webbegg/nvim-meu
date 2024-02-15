@@ -56,17 +56,17 @@ function M.config()
 
   local base16_meu = {
     normal = {
-      a = { fg = colors.cyan, bg = colors.cyan },
+      a = { fg = colors.white, bg = colors.cyan },
       b = { fg = colors.white, bg = colors.grey },
       c = { fg = colors.white, bg = colors.black },
     },
 
-    insert = { a = { fg = colors.green, bg = colors.green } },
-    visual = { a = { fg = colors.cyan, bg = colors.cyan } },
-    replace = { a = { fg = colors.red, bg = colors.red } },
+    insert = { a = { fg = colors.white, bg = colors.green } },
+    visual = { a = { fg = colors.white, bg = colors.cyan } },
+    replace = { a = { fg = colors.white, bg = colors.red } },
 
     inactive = {
-      a = { fg = colors.black, bg = colors.black },
+      a = { fg = colors.white, bg = colors.black },
       b = { fg = colors.white, bg = colors.black },
       c = { fg = colors.black, bg = colors.black },
     },
@@ -84,9 +84,8 @@ function M.config()
       lualine_a = {
         {
           "mode",
-          fmt = function(str)
-            -- Cambia 'NORMAL' a 'N', 'INSERT' a 'I', etc.
-            return str:sub(1, 1) -- Esto solo mostrará la primera letra del modo
+          fmt = function()
+            return " "
           end,
         },
       },

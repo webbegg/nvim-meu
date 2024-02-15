@@ -10,8 +10,6 @@ keymap("n", "<C-i>", "<C-i>", opts)
 
 -- weird keymap
 keymap("n", "<cmd>W<cr>", "<C-s>", opts)
-keymap("n", "<cmd>Wqa<cr>", "<cmd>wqa<cr>", opts)
-keymap("n", "<cmd>Wq<cr>", "<cmd>wq<cr>", opts)
 
 -- Better save file
 keymap({ "n", "v", "i" }, "<C-s>", "<esc><cmd>:w<cr>", opts)
