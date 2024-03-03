@@ -5,15 +5,14 @@ keymap("n", "<Space>", "", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.keymap.set("n", "<esc>", ":nohlsearch<CR>")
 keymap("n", "<C-Space>", "<cmd>WhichKey \\<space><cr>", opts)
 keymap("n", "<C-i>", "<C-i>", opts)
 
--- weird keymap
-keymap("n", "<cmd>W<cr>", "<C-s>", opts)
-
 -- Better save file
 keymap({ "n", "v", "i" }, "<C-s>", "<esc><cmd>:w<cr>", opts)
-keymap("i", "jj", "<esc><cmd>:w<cr>", opts)
+keymap("i", "jj", "<esc><C-s>", opts)
+keymap("i", "kk", "<esc><C-s>", opts)
 
 -- Resize window using <ctrl> arrow keys
 keymap("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
@@ -22,19 +21,19 @@ keymap("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window
 keymap("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move Lines
-keymap("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
-keymap("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
-keymap("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
-keymap("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
-keymap("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-keymap("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+-- keymap("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+-- keymap("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+-- keymap("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+-- keymap("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+-- keymap("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+-- keymap("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
-keymap("n", "<M-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
-keymap("n", "<M-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
-keymap("i", "<M-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
-keymap("i", "<M-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
-keymap("v", "<M-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-keymap("v", "<M-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+-- keymap("n", "<M-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+-- keymap("n", "<M-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+-- keymap("i", "<M-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+-- keymap("i", "<M-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+-- keymap("v", "<M-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+-- keymap("v", "<M-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- Maintain the cursor position when yanking a visual selection.
 keymap("v", "y", "myy`y")

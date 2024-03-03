@@ -39,9 +39,6 @@ function M.config()
   -- end
   --
   -- local filenameAndParentDir = require("user.utils").getFileAndParentDir
-  local empty = function()
-    return " "
-  end
 
   local colors = {
     blue = "#80a0ff",
@@ -71,6 +68,22 @@ function M.config()
       c = { fg = colors.black, bg = colors.black },
     },
   }
+  require("multicursors").setup {
+    hint_config = false,
+  }
+
+  local function is_active()
+    local ok, hydra = pcall(require, "hydra.statusline")
+    return ok and hydra.is_active()
+  end
+
+  local function get_name()
+    local ok, hydra = pcall(require, "hydra.statusline")
+    if ok then
+      return hydra.get_name()
+    end
+    return ""
+  end
 
   require("lualine").setup {
     options = {
@@ -90,28 +103,24 @@ function M.config()
         },
       },
       lualine_b = { { "branch", icon = "" }, diff },
-      -- lualine_b = {
-      --   {
-      --     "filename",
-      --     path = 0,
-      --   },
-      -- },
-      lualine_c = {},
-      -- lualine_c = {},
+      lualine_c = {
+        {
+          "filename",
+          path = 1,
+        },
+      },
       lualine_x = { "diagnostics" },
-      -- lualine_x = { { "branch", icon = "" }, diff },
       lualine_y = { "location" },
       lualine_z = {},
     },
     winbar = {
-      lualine_a = {},
+      lualine_a = {
+        { get_name, cond = is_active },
+      },
       lualine_b = {},
       lualine_c = {},
       lualine_x = {},
-      lualine_y = { {
-        "filename",
-        path = 1,
-      } },
+      lualine_y = { require("auto-session.lib").current_session_name },
       lualine_z = {},
     },
 
@@ -120,12 +129,7 @@ function M.config()
       lualine_b = {},
       lualine_c = {},
       lualine_x = {},
-      lualine_y = {
-        {
-          "filename",
-          path = 1,
-        },
-      },
+      lualine_y = {},
       lualine_z = {},
     },
     extensions = { "quickfix", "man", "fugitive" },
