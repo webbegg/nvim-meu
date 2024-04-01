@@ -10,9 +10,26 @@ keymap("n", "<C-Space>", "<cmd>WhichKey \\<space><cr>", opts)
 keymap("n", "<C-i>", "<C-i>", opts)
 
 -- Better save file
-keymap({ "n", "v", "i" }, "<C-s>", "<esc><cmd>:w<cr>", opts)
-keymap("i", "jj", "<esc><C-s>", opts)
-keymap("i", "kk", "<esc><C-s>", opts)
+function SaveAndDoMore()
+  vim.api.nvim_command "stopinsert" -- exit insert mode
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false) -- exit visual mode
+  vim.cmd "VMClear" -- exit multicursors
+
+  if vim.fn.exists ":Prettier" == 2 then
+    vim.cmd "Prettier"
+  end
+  if vim.fn.exists ":EslintFixAll" == 2 then
+    vim.cmd "EslintFixAll"
+  end
+
+  vim.cmd "wa" -- save all files
+end
+
+keymap({ "n", "v", "i" }, "<C-s>", "<cmd>lua SaveAndDoMore()<cr>", opts)
+keymap("i", "jj", "<cmd>lua SaveAndDoMore()<cr>", opts)
+keymap("i", "kk", "<cmd>lua SaveAndDoMore()<cr>", opts)
+-- execute the command `SaveAndDoMore` when pressing apple CMD+s
+keymap("n", "<D-s>", "<cmd>lua SaveAndDoMore()<cr>", opts)
 
 -- Resize window using <ctrl> arrow keys
 keymap("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })

@@ -5,7 +5,7 @@ return {
         "vue",
         "javascript",
         "javascript.jsx",
-        "typescript",
+        -- "typescript",
         "typescript.tsx",
         "javascriptreact",
         "typescriptreact",

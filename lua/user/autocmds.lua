@@ -60,8 +60,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.vue", "*.json" },
-  command = "silent! EslintFixAll",
-  group = vim.api.nvim_create_augroup("MyAutocmdsJavaScripFormatting", {}),
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.vue", "*.json" },
+--   command = "silent! EslintFixAll",
+--   group = vim.api.nvim_create_augroup("MyAutocmdsJavaScripFormatting", {}),
+-- })
