@@ -21,24 +21,8 @@ return {
 
     local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-    -- Vue, JavaScript, TypeScript
-    require("lspconfig").volar.setup {
-      on_attach = function(client, bufnr)
-        require("lsp-format").on_attach(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-        -- if client.server_capabilities.inlayHintProvider then
-        --   vim.lsp.buf.inlay_hint(bufnr, true)
-        -- end
-      end,
-      capabilities = capabilities,
-      filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-    }
-
-    -- require("lspconfig").tsserver.setup {
-    --   capabilities = capabilities,
-    --   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-    -- }
+    -- Typescript
+    require("lspconfig").tsserver.setup { capabilities = capabilities }
 
     -- Tailwind CSS
     require("lspconfig").tailwindcss.setup { capabilities = capabilities }
