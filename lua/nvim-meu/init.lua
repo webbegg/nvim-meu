@@ -235,23 +235,97 @@ require("lazy").setup({
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+      local icons = require "user.icons"
+      local actions = require "telescope.actions"
+
       require("telescope").setup {
-        -- You can put your default mappings / updates / etc. in here
-        --  All the info you're looking for is in `:help telescope.setup()`
-        --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
+        defaults = {
+          prompt_prefix = icons.ui.Search .. " ",
+          selection_caret = " " .. icons.ui.BoldArrowRight .. " ",
+          entry_prefix = "   ",
+          initial_mode = "insert",
+          selection_strategy = "reset",
+          path_display = { "smart" },
+          sorting_strategy = "ascending",
+          layout_strategy = "horizontal",
+          color_devicons = true,
+          set_env = { ["COLORTERM"] = "truecolor" },
+          layout_config = {
+            horizontal = {
+              prompt_position = "top",
+              preview_width = 0.55,
+              results_width = 0.8,
+            },
+            vertical = {
+              mirror = false,
+            },
+            width = 0.87,
+            height = 0.80,
+            preview_cutoff = 120,
+          },
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--hidden",
+            "--glob=!.git/",
+          },
+
+          mappings = {
+            i = {
+              ["<C-n>"] = actions.cycle_history_next,
+              ["<C-p>"] = actions.cycle_history_prev,
+
+              ["<C-j>"] = actions.move_selection_next,
+              ["<C-k>"] = actions.move_selection_previous,
+              ["<esc>"] = actions.close,
+            },
+            n = {
+              ["<esc>"] = actions.close,
+              ["j"] = actions.move_selection_next,
+              ["k"] = actions.move_selection_previous,
+              ["q"] = actions.close,
+            },
+          },
+        },
+        pickers = {
+          live_grep = {},
+          grep_string = {},
+          find_files = { previewer = false },
+          buffers = {
+            previewer = false,
+            initial_mode = "normal",
+            mappings = {
+              i = { ["<C-d>"] = actions.delete_buffer },
+              n = { ["dd"] = actions.delete_buffer },
+            },
+          },
+
+          planets = { show_pluto = true, show_moon = true },
+
+          colorscheme = { enable_preview = true },
+
+          lsp_references = { initial_mode = "normal" },
+
+          lsp_definitions = { initial_mode = "normal" },
+
+          lsp_declarations = { initial_mode = "normal" },
+
+          lsp_implementations = { initial_mode = "normal" },
+        },
         extensions = {
-          ["ui-select"] = {
-            require("telescope.themes").get_dropdown(),
+          fzf = {
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
           },
         },
       }
-
       -- Enable Telescope extensions if they are installed
       pcall(require("telescope").load_extension, "fzf")
       pcall(require("telescope").load_extension, "ui-select")
@@ -526,11 +600,12 @@ require("lazy").setup({
         lua = { "stylua" },
         go = { "goimports", "gofmt" },
 
-        typescript = { { "eslint_d", "prettierd", "prettier" } },
-        typescriptreact = { { "eslint_d", "prettierd", "prettier" } },
-        javascript = { { "eslint_d", "prettierd", "prettier" } },
-        javascriptreact = { { "eslint_d", "prettierd", "prettier" } },
-        vue = { { "eslint_d", "prettierd", "prettier" } },
+        -- JS
+        typescript = { { "eslint_d" } },
+        typescriptreact = { { "eslint_d" } },
+        javascript = { { "eslint_d" } },
+        javascriptreact = { { "eslint_d" } },
+        vue = { { "eslint_d" } },
       },
     },
   },

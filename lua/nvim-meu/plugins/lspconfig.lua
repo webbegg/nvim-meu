@@ -21,8 +21,39 @@ return {
 
     local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-    -- Typescript
-    require("lspconfig").tsserver.setup { capabilities = capabilities }
+    -- local mason_registry = require('mason-registry')
+    -- local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+    --
+    -- local lspconfig = require('lspconfig')
+    --
+    -- lspconfig.tsserver.setup {
+    --   init_options = {
+    --     plugins = {
+    --       {
+    --         name = '@vue/typescript-plugin',
+    --         location = vue_language_server_path,
+    --         languages = { 'vue' },
+    --       },
+    --     },
+    --   },
+    --   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+    -- }
+    --
+    -- -- No need to set `hybridMode` to `true` as it's the default value
+    -- lspconfig.volar.setup {}
+
+    local lspconfig = require('lspconfig')
+    lspconfig.volar.setup {
+      filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+      init_options = {
+        vue = {
+          hybridMode = false,
+        },
+      },
+    }
+
+    --Eslint
+    require("lspconfig").eslint.setup { capabilities = capabilities }
 
     -- Tailwind CSS
     require("lspconfig").tailwindcss.setup { capabilities = capabilities }
@@ -92,8 +123,8 @@ return {
 
     -- Keymaps
     vim.keymap.set("n", "<Leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>")
-    vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
-    vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
+    vim.keymap.set("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
+    vim.keymap.set("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next()<CR>")
     vim.keymap.set("n", "gd", ":Telescope lsp_definitions<CR>")
     vim.keymap.set("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>")
     vim.keymap.set("n", "gi", ":Telescope lsp_implementations<CR>")

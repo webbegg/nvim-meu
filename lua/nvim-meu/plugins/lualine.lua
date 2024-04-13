@@ -59,20 +59,23 @@ function M.config()
       },
       lualine_b = { { "branch", icon = "" }, diff },
       lualine_c = {
-        {
-          "filename",
-          path = 1,
-        },
+        -- {
+        --   "filename",
+        --   path = 1,
+        -- },
       },
       lualine_x = { "diagnostics" },
       lualine_y = { "location" },
       lualine_z = {},
     },
     winbar = {
-      lualine_a = {
-        { get_name, cond = is_active },
+      lualine_a = {},
+      lualine_b = {
+        {
+          "filename",
+          path = 1,
+        },
       },
-      lualine_b = {},
       lualine_c = {},
       lualine_x = {},
       lualine_y = { require("auto-session.lib").current_session_name },

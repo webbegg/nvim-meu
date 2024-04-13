@@ -31,7 +31,6 @@ M.deactivate = function()
 end
 
 M.init = function()
-  vim.keymap.set("n", "<leader>e", "Neotree float", { desc = "Neotree" })
   vim.g.neo_tree_remove_legacy_commands = 1
   if vim.fn.argc() == 1 then
     local stat = vim.loop.fs_stat(vim.fn.argv(0))

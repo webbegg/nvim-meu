@@ -14,9 +14,9 @@ function SaveAndDoMore()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false) -- exit visual mode
   vim.cmd "VMClear" -- exit multicursors
 
-  if vim.fn.exists ":Prettier" == 2 then
-    vim.cmd "Prettier"
-  end
+  -- if vim.fn.exists ":Prettier" == 2 then
+  --   vim.cmd "Prettier"
+  -- end
 
   if vim.fn.exists ":EslintFixAll" == 2 then
     vim.cmd "EslintFixAll"
@@ -28,6 +28,16 @@ end
 keymap({ "n", "v", "i" }, "<C-s>", "<cmd>lua SaveAndDoMore()<cr>", opts)
 keymap("i", "jj", "<cmd>lua SaveAndDoMore()<cr>", opts)
 keymap("i", "kk", "<cmd>lua SaveAndDoMore()<cr>", opts)
+keymap("i", "jk", "<cmd>lua SaveAndDoMore()<cr>", opts)
+keymap("i", "kj", "<cmd>lua SaveAndDoMore()<cr>", opts)
+
+-- Close current buffer
+keymap("n", "<leader>bd", ":bd<CR>", opts)
+keymap("n", "<leader>q", ":bd<CR>", opts)
+
+-- Navigate between buffers
+keymap("n", "<TAB>", ":bnext<CR>", opts)
+keymap("n", "<S-TAB>", ":bprevious<CR>", opts)
 
 -- Resize window using <ctrl> arrow keys
 keymap("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
@@ -84,7 +94,10 @@ vim.api.nvim_set_keymap("n", "<RightMouse>", "<Nop>", { noremap = true })
 vim.api.nvim_set_keymap("v", "<RightMouse>", "<Nop>", { noremap = true })
 vim.api.nvim_set_keymap("i", "<RightMouse>", "<Nop>", { noremap = true })
 
+-- Disable record to prevent weird commands
+vim.api.nvim_set_keymap("n", "e", "<Nop>", { noremap = true })
+
 -- Find
 keymap("n", "<C-p>", "<cmd>Telescope find_files<cr>", opts)
 -- Neotree
-keymap("n", "<leader>e", "<cmd>Neotree float toggle<cr>", opts)
+keymap("n", "<leader>e", "<cmd>Neotree reveal float<cr>", opts)
