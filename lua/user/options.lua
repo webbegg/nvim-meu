@@ -1,12 +1,12 @@
 vim.opt.backup = false -- creates a backup file
-vim.opt.clipboard = 'unnamedplus' -- allows neovim to access the system clipboard
+vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.cmdheight = 1 -- more space in the neovim command line for displaying messages
-vim.opt.completeopt = { 'menuone', 'noselect' } -- mostly just for cmp
+vim.opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
 vim.opt.conceallevel = 0 -- so that `` is visible in markdown files
-vim.opt.fileencoding = 'utf-8' -- the encoding written to a file
+vim.opt.fileencoding = "utf-8" -- the encoding written to a file
 vim.opt.hlsearch = false -- highlight all matches on previous search pattern
 vim.opt.ignorecase = true -- ignore case in search patterns
-vim.opt.mouse = 'a' -- allow the mouse to be used in neovim
+vim.opt.mouse = "a" -- allow the mouse to be used in neovim
 vim.opt.pumheight = 10 -- pop up menu height
 vim.opt.pumblend = 10
 vim.opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
@@ -25,44 +25,56 @@ vim.opt.expandtab = true -- convert tabs to spaces
 vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
 vim.opt.tabstop = 2 -- insert 2 spaces for a tab
 vim.opt.cursorline = true -- highlight the current line
-vim.opt.number = true -- set numbered lines
-vim.opt.relativenumber = true -- set relative numbered lines
+vim.opt.number = false -- set numbered lines
+vim.opt.relativenumber = false -- set relative numbered lines
 vim.opt.laststatus = 3
 vim.opt.showcmd = false
 vim.opt.ruler = false
 vim.opt.numberwidth = 2 -- set number column width to 2 {default 4}
-vim.opt.signcolumn = 'yes' -- always show the sign column, otherwise it would shift the text each time
+vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
 vim.opt.wrap = false -- display lines as one long line
 vim.opt.scrolloff = 0
 vim.opt.sidescrolloff = 8
 vim.opt.hlsearch = false
-vim.opt.guifont = 'monospace:h17' -- the font used in graphical neovim applications
+vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
 vim.opt.title = false
 -- colorcolumn = "80",
 -- colorcolumn = "120",
-vim.opt.fillchars = vim.opt.fillchars + 'eob: '
-vim.opt.fillchars:append {
-  stl = ' ',
-}
+vim.opt.fillchars = vim.opt.fillchars + "eob: "
+vim.opt.fillchars:append({
+	stl = " ",
+})
 
-vim.opt.shortmess:append 'c'
+vim.opt.shortmess:append("c")
 
-vim.cmd 'set whichwrap+=<,>,[,],h,l'
-vim.cmd [[set iskeyword+=-]]
+vim.cmd("set whichwrap+=<,>,[,],h,l")
+vim.cmd([[set iskeyword+=-]])
 
 vim.g.netrw_banner = 0
 vim.g.netrw_mouse = 2
 vim.g.netrw_liststyle = 3
 
 -- Diagnostic
-vim.diagnostic.config {
-  virtual_text = false, -- This disables inline text
-  underline = true, -- This enables underline, use false to disables
-  signs = true, -- This enables signs, use false to disables
-}
+vim.diagnostic.config({
+	virtual_text = false, -- This disables inline text
+	underline = true, -- This enables underline, use false to disables
+	signs = true, -- This enables signs, use false to disables
+	float = {
+		header = false,
+		border = "rounded",
+		focusable = true,
+	},
+})
 
-local icons = require 'user.icons'
-vim.fn.sign_define('DiagnosticSignError', { text = icons.ui.Dot, texthl = 'DiagnosticSignError' })
-vim.fn.sign_define('DiagnosticSignWarn', { text = icons.ui.Dot, texthl = 'DiagnosticSignWarn' })
-vim.fn.sign_define('DiagnosticSignInfo', { text = icons.ui.Dot, texthl = 'DiagnosticSignInfo' })
-vim.fn.sign_define('DiagnosticSignHint', { text = icons.ui.Dot, texthl = 'DiagnosticSignHint' })
+local icons = require("user.icons")
+vim.fn.sign_define("DiagnosticSignError", { text = icons.ui.Dot, texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = icons.ui.Dot, texthl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = icons.ui.Dot, texthl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignHint", { text = icons.ui.Dot, texthl = "DiagnosticSignHint" })
+
+-- Full height
+vim.opt.cmdheight = 0 -- more space in the neovim command line for displaying messages
+vim.opt.laststatus = 0 -- always show tabs
+vim.opt.showtabline = 0 -- always show tabs
+vim.opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
+vim.opt.showcmd = false

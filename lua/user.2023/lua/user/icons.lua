@@ -72,6 +72,7 @@ return {
     Watches = "󰂥",
     DebugConsole = "",
     Dot = " ",
+    DottedLine = "",
     Calendar = "",
     Check = "",
     ChevronRight = "",
