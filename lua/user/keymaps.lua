@@ -6,7 +6,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 keymap("n", "<esc>", ":nohlsearch<CR>", opts)
-keymap("n", "<C-Space>", "<cmd>WhichKey \\<space><cr>", opts)
 
 -- Better save file
 function SaveAndDoMore()
@@ -150,3 +149,16 @@ keymap("n", "<leader>gk", "<cmd>lua require('gitsigns').prev_hunk()<cr>", opts)
 
 -- TODOS List
 keymap("n", "<A-t>", "<cmd>TodoTelescope<cr>", opts)
+
+-- COPILOT
+keymap("i", "<Tab>", "<cmd>lua require('copilot.suggestion').accept_line()<cr>", opts)
+keymap("i", "<M-j>", "<cmd>lua require('copilot.suggestion').next()<cr>", opts)
+keymap("i", "<M-k>", "<cmd>lua require('copilot.suggestion').prev()<cr>", opts)
+keymap("i", "<M-Esc>", "<cmd>lua require('copilot.suggestion').dismiss()<cr>", opts)
+
+-- COPILOT BASE KEYMAPS
+--
+
+-- keymap("i", "<M-", "<cmd>require('copilot.panel').jump_prev()<cr>", opts)
+-- keymap("i", "<M-", "<cmd>require('copilot.panel').open({position, ratio})<cr>", opts)
+-- keymap("i", "<M-", "<cmd>require('copilot.panel').refresh()<cr>", opts)

@@ -13,13 +13,13 @@ M.config = function()
 		signs = {
 			add = {
 				hl = "GitSignsAdd",
-				text = icons.ui.LineMiddle, -- icons.ui.LineLeft,
+				text = "|", -- "", -- icons.ui.LineMiddle, -- icons.ui.LineLeft,
 				numhl = "GitSignsAddNr",
 				linehl = "GitSignsAddLn",
 			},
 			change = {
 				hl = "GitSignsChange",
-				text = icons.ui.LineMiddle, -- icons.ui.LineLeft,
+				text = "|", -- "", -- icons.ui.LineMiddle, -- icons.ui.LineLeft,
 				numhl = "GitSignsChangeNr",
 				linehl = "GitSignsChangeLn",
 			},
@@ -37,7 +37,7 @@ M.config = function()
 			},
 			changedelete = {
 				hl = "GitSignsChange",
-				text = icons.ui.LineMiddle, -- icons.ui.LineLeft,
+				text = "|", -- "", -- icons.ui.LineMiddle, -- icons.ui.LineLeft,
 				numhl = "GitSignsChangeNr",
 				linehl = "GitSignsChangeLn",
 			},

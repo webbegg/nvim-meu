@@ -23,9 +23,9 @@ return {
 	config = function()
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
-		-- local lspkind = require("lspkind")
 
 		local kind_icons = {
+			Copilot = "",
 			Text = "",
 			Method = "󰆧",
 			Function = "󰊕",
@@ -56,20 +56,23 @@ return {
 		luasnip.config.setup({})
 
 		cmp.setup({
+
 			snippet = {
 				expand = function(args)
 					luasnip.lsp_expand(args.body)
 				end,
 			},
 			completion = {
+				autocomplete = false,
 				completeopt = "menu,menuone,noinsert",
 			},
 			mapping = cmp.mapping.preset.insert({
 				["<C-j>"] = cmp.mapping.select_next_item(),
 				["<C-k>"] = cmp.mapping.select_prev_item(),
-				-- ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-				-- ["<C-f>"] = cmp.mapping.scroll_docs(4),
 				["<C-Space>"] = cmp.mapping.complete({}),
+				["<C-e>"] = cmp.mapping.close(),
+				["<C-n>"] = cmp.mapping.scroll_docs(1),
+				["<C-p>"] = cmp.mapping.scroll_docs(-1),
 				["<C-y>"] = cmp.mapping.confirm({ select = true }),
 				["<CR>"] = cmp.mapping.confirm({
 					behavior = cmp.ConfirmBehavior.Replace,
@@ -99,7 +102,7 @@ return {
 				documentation = cmp.config.window.bordered(),
 			},
 			sources = {
-				{ name = "copilot" },
+				{ name = "copilot", group_index = 2 },
 				{ name = "nvim_lsp" },
 				{ name = "nvim_lua" },
 				{ name = "luasnip" },
