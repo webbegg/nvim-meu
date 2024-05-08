@@ -55,6 +55,13 @@ return {
 		require("luasnip.loaders.from_vscode").lazy_load()
 		luasnip.config.setup({})
 
+		-- local lspkind = require("lspkind")
+		-- lspkind.init({
+		-- 	symbol_map = {
+		-- 		Copilot = "",
+		-- 	},
+		-- })
+
 		cmp.setup({
 
 			snippet = {
@@ -102,7 +109,7 @@ return {
 				documentation = cmp.config.window.bordered(),
 			},
 			sources = {
-				{ name = "copilot", group_index = 2 },
+				-- { name = "copilot" },
 				{ name = "nvim_lsp" },
 				{ name = "nvim_lua" },
 				{ name = "luasnip" },

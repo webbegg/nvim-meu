@@ -6,6 +6,8 @@ return {
 		event = "InsertEnter",
 		config = function()
 			require("copilot").setup({
+				-- suggestion = { enabled = false },
+				-- panel = { enabled = false },
 				panel = {
 					enabled = true,
 					auto_refresh = true,
@@ -23,13 +25,13 @@ return {
 				},
 				suggestion = {
 					enabled = true,
-					auto_trigger = false,
+					auto_trigger = true,
 					debounce = 75,
 					-- keymap = {
 					-- 	--clear suggestion
 					-- 	accept = "<M-a>",
-					-- 	accept_word = false,
-					-- 	accept_line = false,
+					accept_word = false,
+					accept_line = false,
 					-- next = "<M-j>",
 					-- prev = "<M-k>",
 					-- 	dismiss = "<C-e>",
@@ -38,12 +40,10 @@ return {
 			})
 		end,
 	},
-
 	-- {
-	--     "zbirenbaum/copilot-cmp",
-	--     -- after = { "copilot.lua" },
-	--     config = function()
-	--         require("copilot_cmp").setup()
-	--     end,
-	-- }
+	-- 	"zbirenbaum/copilot-cmp",
+	-- 	config = function()
+	-- 		require("copilot_cmp").setup()
+	-- 	end,
+	-- },
 }

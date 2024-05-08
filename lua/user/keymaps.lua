@@ -119,6 +119,8 @@ keymap("n", "q", "<Nop>", { noremap = true })
 
 -- Neotree
 keymap("n", "<leader>e", "<cmd>Neotree reveal float<cr>", opts)
+keymap("n", "<leader><s-tab>", "<cmd>Neotree left toggle reveal<cr>", opts)
+keymap("n", "<leader><tab>", "<cmd>Neotree right toggle reveal<cr>", opts)
 
 -- Lspsaga terminal
 keymap("n", "<A-Esc>", "<cmd>Lspsaga term_toggle<cr>", opts)
@@ -150,15 +152,38 @@ keymap("n", "<leader>gk", "<cmd>lua require('gitsigns').prev_hunk()<cr>", opts)
 -- TODOS List
 keymap("n", "<A-t>", "<cmd>TodoTelescope<cr>", opts)
 
+-- Rename
+vim.keymap.set("n", "<leader>rn", function()
+	return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
+
 -- COPILOT
-keymap("i", "<Tab>", "<cmd>lua require('copilot.suggestion').accept_line()<cr>", opts)
+function toggleCopilot()
+	require("copilot.suggestion").toggle_auto_trigger()
+	print(" Copilot: " .. (vim.g.copilot_auto_trigger and "Enabled" or "Disabled" .. "  "))
+end
+
+keymap("i", "<M-l>", "<cmd>lua require('copilot.suggestion').accept()<cr>", opts)
 keymap("i", "<M-j>", "<cmd>lua require('copilot.suggestion').next()<cr>", opts)
 keymap("i", "<M-k>", "<cmd>lua require('copilot.suggestion').prev()<cr>", opts)
 keymap("i", "<M-Esc>", "<cmd>lua require('copilot.suggestion').dismiss()<cr>", opts)
+keymap("n", "<leader>cp", "<cmd>lua toggleCopilot()<cr>", {
+	noremap = true,
+	silent = false,
+})
 
--- COPILOT BASE KEYMAPS
+-- require("user.utils").discipline.cowboy()
+
+-- Toggle linenumber and relative numbers in the same keymap
 --
+function ToggleNumbers()
+	if vim.wo.number then
+		vim.wo.relativenumber = false
+		vim.wo.number = false
+	else
+		vim.wo.relativenumber = true
+		vim.wo.number = true
+	end
+end
 
--- keymap("i", "<M-", "<cmd>require('copilot.panel').jump_prev()<cr>", opts)
--- keymap("i", "<M-", "<cmd>require('copilot.panel').open({position, ratio})<cr>", opts)
--- keymap("i", "<M-", "<cmd>require('copilot.panel').refresh()<cr>", opts)
+keymap("n", "<leader>ln", ":lua ToggleNumbers()<CR>", opts)

@@ -1,49 +1,13 @@
 local M = {
 	"nvim-lualine/lualine.nvim",
 	requires = { "kyazdani42/nvim-web-devicons" },
+	enabled = true,
 	dependencies = {
 		"meuter/lualine-so-fancy.nvim",
 	},
 }
 
 M.config = function()
-	-- local sl_hl = vim.api.nvim_get_hl_by_name("StatusLine", true)
-	vim.api.nvim_set_hl(0, "Copilot", { fg = "#6CC644", bg = "#181818" }) -- sl_hl.background })
-	local icons = require("user.icons")
-	local diff = {
-		"diff",
-		colored = true,
-		symbols = { added = icons.git.LineAdded, modified = icons.git.LineModified, removed = icons.git.LineRemoved }, -- Changes the symbols used by the diff.
-	}
-
-	-- local copilot = function()
-	--   local buf_clients = vim.lsp.get_clients { bufnr = 0 }
-	--   if #buf_clients == 0 then
-	--     return 'LSP Inactive'
-	--   end
-	--
-	--   local buf_client_names = {}
-	--   local copilot_active = false
-	--
-	--   for _, client in pairs(buf_clients) do
-	--     if client.name ~= 'null-ls' and client.name ~= 'copilot' then
-	--       table.insert(buf_client_names, client.name)
-	--     end
-	--
-	--     if client.name == 'copilot' then
-	--       copilot_active = true
-	--     end
-	--   end
-	--
-	--   if copilot_active then
-	--     return '%#Copilot#' .. icons.git.Octoface .. '%*'
-	--   end
-	--   return ''
-	-- end
-	--
-	-- local currentSession = require('auto-session.lib').current_session_name
-	-- local filenameAndParentDir = require("user.utils").getFileAndParentDir
-
 	local colors = {
 		blue = "#80a0ff",
 		cyan = "#8ab3b5",
@@ -77,12 +41,18 @@ M.config = function()
 		},
 	}
 
+	local icons = require("user.icons")
+	local diff = {
+		"diff",
+		colored = true,
+		symbols = { added = icons.git.LineAdded, modified = icons.git.LineModified, removed = icons.git.LineRemoved }, -- Changes the symbols used by the diff.
+	}
+
 	local fileicon = {
 		"filetype",
 		colored = true, -- Displays filetype icon in color if set to true
 		icon_only = true, -- Display only an icon for filetype
 		icon = { align = "right" }, -- Display filetype icon on the right hand side
-
 		padding = { left = 1, right = 0 },
 	}
 
@@ -91,22 +61,36 @@ M.config = function()
 		path = 1,
 		file_status = true,
 		icons_enabled = true,
+		no_name = "",
 		symbols = {
-			modified = "[+]", -- Text to show when the file is modified.
-			readonly = "[-]", -- Text to show when the file is non-modifiable or readonly.
+			modified = "", -- Text to show when the file is modified.
+			readonly = icons.diagnostics.BoldError, -- Text to show when the file is non-modifiable or readonly.
 			unnamed = "", -- Text to show for unnamed buffers.
 			newfile = "", -- Text to show for newly created file before first write
 		},
-		padding = { left = 0 },
+		padding = { left = 1 },
 	}
 
 	local group_filename = {
 		fileicon,
-		filename,
+		{
+			"filename",
+			path = 0,
+			file_status = false,
+			icons_enabled = true,
+		},
 	}
-	local group_branch = {
-		-- { "fancy_lsp_servers" },
+	local group_filepath = {
+		filename,
+		"fancy_searchcount",
+	}
+
+	local group_diagnostics = {
 		{ "fancy_diagnostics" },
+	}
+
+	local group_branch = {
+		group_diagnostics,
 		diff,
 		{ "fancy_branch" },
 		-- { "fancy_cwd", substitute_home = true },
@@ -142,8 +126,9 @@ M.config = function()
 			lualine_z = {},
 		},
 		winbar = {
-			lualine_c = group_filename,
-			lualine_x = group_branch,
+			lualine_b = group_filename,
+			lualine_c = group_filepath,
+			lualine_y = group_diagnostics,
 		},
 		inactive_winbar = {
 			lualine_c = group_filename,
@@ -154,77 +139,3 @@ M.config = function()
 end
 
 return M
-
--- return {
--- 	"nvim-lualine/lualine.nvim",
--- 	dependencies = {
--- 		"meuter/lualine-so-fancy.nvim",
--- 	},
--- 	enabled = true,
--- 	lazy = false,
--- 	event = { "BufReadPost", "BufNewFile", "VeryLazy" },
--- 	config = function()
--- 		-- local icons = require("config.icons")
--- 		require("lualine").setup({
--- 			options = {
--- 				theme = "auto",
--- 				-- theme = "catppuccin",
--- 				globalstatus = true,
--- 				icons_enabled = true,
--- 				-- component_separators = { left = "│", right = "│" },
--- 				component_separators = { left = "|", right = "|" },
--- 				section_separators = { left = "", right = "" },
--- 				disabled_filetypes = {
--- 					statusline = {
--- 						"alfa-nvim",
--- 						"help",
--- 						"neo-tree",
--- 						"Trouble",
--- 						"spectre_panel",
--- 						"toggleterm",
--- 					},
--- 					winbar = {},
--- 				},
--- 			},
--- 			sections = {
--- 				lualine_a = {},
--- 				lualine_b = {
--- 					"fancy_branch",
--- 				},
--- 				lualine_c = {
--- 					{
--- 						"filename",
--- 						path = 1, -- 2 for full path
--- 						symbols = {
--- 							modified = "  ",
--- 							-- readonly = "  ",
--- 							-- unnamed = "  ",
--- 						},
--- 					},
--- 					{
--- 						"fancy_diagnostics",
--- 						sources = { "nvim_lsp" },
--- 						symbols = { error = " ", warn = " ", info = " " },
--- 					},
--- 					{ "fancy_searchcount" },
--- 				},
--- 				lualine_x = {
--- 					"fancy_lsp_servers",
--- 					"fancy_diff",
--- 				},
--- 				lualine_y = {},
--- 				lualine_z = {},
--- 			},
--- 			inactive_sections = {
--- 				lualine_a = {},
--- 				lualine_b = {},
--- 				lualine_c = { "filename" },
--- 				-- lualine_x = { "location" },
--- 				lualine_y = {},
--- 				lualine_z = {},
--- 			},
--- 			tabline = {},
--- 			extensions = { "neo-tree", "lazy" },
--- 		})
--- 	end,
--- }

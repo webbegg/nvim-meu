@@ -1,43 +1,92 @@
-local M = {
-  'nvim-neo-tree/neo-tree.nvim',
-  cmd = 'Neotree',
-  dependencies = {
-    'nvim-lua/plenary.nvim',
-    'nvim-tree/nvim-web-devicons',
-    'MunifTanjim/nui.nvim',
-  },
-  opts = {
-    filesystem = {
-      visible = false,
-      bind_to_cwd = false,
-      follow_current_file = {
-        enabled = true,
-      },
-      hide_dotfiles = false,
-      hide_gitignored = false,
-      hide_hidden = false,
-    },
-    window = {
-      position = 'float',
-      mappings = {
-        ['<space>'] = 'none',
-      },
-    },
-  },
+return {
+	"nvim-neo-tree/neo-tree.nvim",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"nvim-tree/nvim-web-devicons",
+		"MunifTanjim/nui.nvim",
+	},
+	event = "VeryLazy",
+	keys = {
+		{ "<leader>e", ":Neotree toggle reveal float<CR>", silent = true, desc = "Float File Explorer" },
+		{ "<leader><tab>", ":Neotree toggle reveal left<CR>", silent = true, desc = "Left File Explorer" },
+	},
+	config = function()
+		require("neo-tree").setup({
+			close_if_last_window = true,
+			popup_border_style = "single",
+			enable_git_status = true,
+			enable_modified_markers = true,
+			enable_diagnostics = true,
+			sort_case_insensitive = true,
+			--disable modified date
+			show_date = false,
+			default_component_configs = {
+				indent = {
+					with_markers = true,
+					with_expanders = true,
+				},
+				modified = {
+					symbol = " ",
+					highlight = "NeoTreeModified",
+				},
+				icon = {
+					folder_closed = "",
+					folder_open = "",
+					folder_empty = "",
+					folder_empty_open = "",
+				},
+				git_status = {
+					symbols = {
+						-- Change type
+						added = "",
+						deleted = "",
+						modified = "",
+						renamed = "",
+						-- Status type
+						untracked = "",
+						ignored = "",
+						unstaged = "",
+						staged = "",
+						conflict = "",
+					},
+				},
+			},
+			window = {
+				position = "float",
+				width = 25,
+			},
+			filesystem = {
+				use_libuv_file_watcher = true,
+				filtered_items = {
+					hide_dotfiles = false,
+					hide_gitignored = false,
+					hide_by_name = {
+						"node_modules",
+					},
+					never_show = {
+						".DS_Store",
+						"thumbs.db",
+					},
+				},
+			},
+			event_handlers = {
+				{
+					event = "neo_tree_window_after_open",
+					handler = function(args)
+						if args.position == "left" or args.position == "right" then
+							vim.cmd("wincmd =")
+						end
+					end,
+				},
+				{
+					event = "neo_tree_window_after_close",
+					handler = function(args)
+						if args.position == "left" or args.position == "right" then
+							vim.cmd("wincmd =")
+						end
+					end,
+				},
+			},
+		})
+	end,
 }
-
-M.deactivate = function()
-  vim.cmd [[Neotree close]]
-end
-
-M.init = function()
-  vim.g.neo_tree_remove_legacy_commands = 1
-  if vim.fn.argc() == 1 then
-    local stat = vim.loop.fs_stat(vim.fn.argv(0))
-    if stat and stat.type == 'directory' then
-      require 'neo-tree'
-    end
-  end
-end
-
-return M
